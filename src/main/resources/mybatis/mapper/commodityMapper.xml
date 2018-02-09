@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.dayuanit.spider.mapper.CommodityMapper">
+
+	<resultMap type="commodity" id="commodityMap">
+		<id property="id" column="id"/>
+		<result property="commName" column="comm_name"/>
+		<result property="commPrice" column="comm_price"/>
+		<result property="author" column="author"/>
+		<result property="press" column="press"/>
+		<result property="pubData" column="pub_data"/>
+		<result property="isbn" column="isbn"/>
+		<result property="commLabel" column="comm_label"/>
+		<result property="commCatalog" column="comm_catalog"/>
+		<result property="preface" column="preface"/>
+		<result property="pictureName" column="picture_name"/>
+		<result property="parentCatalogNum" column="parent_catalog_num"/>
+		<result property="childCatalogNum" column="child_catalog_num"/>
+		<result property="score" column="score"/>
+	</resultMap>
+	
+	<sql id="commodity_filed">
+		 id,comm_name, comm_price, press, author, pub_data, isbn,comm_label,comm_catalog,preface,picture_name,parent_catalog_num,child_catalog_num,score
+	</sql>
+	
+  <insert id="add" useGeneratedKeys="true" keyProperty="id">
+  	INSERT into s_commodity(comm_name, comm_price, press, author, pub_data, isbn,comm_label,comm_catalog,preface,picture_name,parent_catalog_num,child_catalog_num,score) 
+  	value(#{commName}, #{commPrice}, #{press},#{author}, #{pubData},#{isbn},#{commLabel},#{commCatalog},#{preface},#{pictureName},#{parentCatalogNum},#{childCatalogNum},#{score})
+  </insert>
+  
+  <select id="listPicName" resultType="string">
+  	select picture_name
+  	from s_commodity;
+  </select>
+  
+</mapper>

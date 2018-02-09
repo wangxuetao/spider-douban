@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ 
+<mapper namespace="com.dayuanit.spider.mapper.CatalogMapper">
+
+	<resultMap type="catalog" id="catalogMap">
+		<id property="id" column="id"/>
+		<result property="catalogName" column="catalog_name"/>
+		<result property="catalogNum" column="catalog_num"/>
+		<result property="childNode" column="child_node"/>
+		<result property="parentNum" column="parent_num"/>
+		<result property="createTime" column="create_time"/>
+	</resultMap>
+	
+	<sql id="catalog_filed">
+		 id,catalog_name, catalog_num, child_node, parent_num, create_time
+	</sql>
+	
+  <insert id="add" useGeneratedKeys="true" keyProperty="id">
+  	INSERT into s_catalog(catalog_name, catalog_num, child_node, parent_num, create_time) 
+  	value(#{catalogName}, #{catalogNum}, #{childNode},#{parentNum}, now())
+  </insert>
+  
+  <select id="listCatalog" resultMap="catalogMap">
+  	select <include refid="catalog_filed"></include>
+  	from s_catalog
+  	where child_node=#{childNode}
+  </select>
+  
+  
+</mapper>
